@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script defer src="face-api.min.js"></script>
+    <script defer src="script.js"></script>
+    <title>Document</title>
+    <style>
+      @media only screen and (max-width: 600px) {
+  #capture {
+    width: 320px!important;
+  height: 240px!important;
+  }
+}
+      #absensi-form{
+       
+        margin: 0;
+      padding: 0;
+      padding-top: 3%;
+      padding-left: 3%;
+      padding-right: 3%;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      /* justify-content: center; */
+   
+      flex-direction: column
+      }
+      #capture {
+  display: none;
+  width: 720px;
+  height: 540px;
+}
+
+
+  
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    </style>
+</head>
+<body>
+    <nav class="navbar bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" style="color: #fff;" href="#">Absensi</a>
+        </div>
+      </nav>
+      <section id="absensi-form">
+       
+         <div class="row">
+           <div class="col-md-6 col-sm-12">
+         
+            
+            <!-- Video Element & Canvas -->
+           <hr>
+           <div class="play-area">
+            <div class="row">
+              <div class="col-md-12 col-sm-12">
+               
+                  <video id="stream" style="width: 100%;"></video>
+                  <div id="layer-capture" style="width: 100%;">
+                    <canvas id="capture"width="720" height="540></canvas>
+                    <div id="snapshot"></div>
+                  </div>
+                    
+              </div>
+             
+            </div>
+            <hr>
+            <br>
+            <div class="button-group">
+              <center> <button id="btn-start" type="button" class="btn btn-success">Open Cam</button>
+          
+                <button id="btn-capture" type="button" class="btn btn-primary">Capture Image</button></center>
+             
+            </div>
+           </div>
+           <div class="col-md-6 col-sm-12" style="padding-top: 0.9%;">
+           <br><br>
+            <center><h5>DETAIL INFORMASI</h5></center>
+            <HR>
+             <p id="nip"></p>
+             <p id="nama"></p>
+             <p id="jabatan"></p>
+           </div>
+         
+           
+           </div>
+         </div>
+      </section>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+     
+    <title>Dashboard</title>
+    <style>
+        #menu-dashboard{
+            padding: 2%;
+        }
+        .card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 100%;
+  margin-top: 3%;
+ 
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(11, 62, 231, 0.2);
+  cursor: pointer;
+}
+
+.container {
+  padding: 2px 16px;
+}
+.icon {
+    background-image: url("data:image/png;base64,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");
+
+/* Full height */
+height: 100%;
+
+/* Center and scale the image nicely */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" style="color: #fff;" href="#">Dashboard</a>
+        </div>
+      </nav>
+
+      <section id="menu-dashboard">
+          <div class="row">
+              <div class="col-md-12 col-sm-12">
+             <div class="row">
+                 <div class="col-md-6 col-sm-6">
+                    <div class="card" onclick="window.location.href='./add-pegawai.html'">
+                        <div class="container">
+        
+                          <div class="row">
+                              <div class="col-md-2">
+                               <img src="./assets/img/download.png" height="100" width="100">
+                              </div>
+                              <div class="col">
+                                 <h5 style="margin-top: 5%; text-align: center;">Daftar Pegawai</h5><hr>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                 </div>
+
+
+                 <div class="col-md-6 col-sm-6">
+                    <div class="card" onclick="window.location.href='./absen.html'">
+                        <div class="container">
+        
+                          <div class="row">
+                              <div class="col-md-2 ">
+                               <img src="./assets/img/download2.png" height="100" width="100">
+                              </div>
+                              <div class="col">
+                                 <h5 style="margin-top: 5%; text-align: center;">Isi Absensi</h5>
+                                 <hr>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                 </div>
+
+                 <div class="col-md-12 col-sm-12">
+                  <div class="card">
+                      <div class="container">
+      
+                        <div class="row">
+                            <div class="col-md-2 ">
+                             <img src="./assets/img/download2.png" height="100" width="100">
+                            </div>
+                            <div class="col">
+                               <h5 style="margin-top: 5%; text-align: center;">Cetak Laporan Absensi</h5>
+                               <hr>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+               </div
+
+             </div>
+              </div>
+          </div>
+      </section>
+</body>
+</html>
