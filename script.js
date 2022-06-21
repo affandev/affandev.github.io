@@ -37,8 +37,9 @@ function startStreaming() {
     });
   }
   else {
-
-    alert( 'Your browser does not support media devices.' );
+    stopStreaming()
+    stream.style.display = "none"
+    // alert( 'Your browser does not support media devices.' );
 
     return;
   }
@@ -60,13 +61,19 @@ function stopStreaming() {
 
 const imageUpload = document.getElementById('imageUpload')
 
-Promise.all([
-  faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
-  faceapi.nets.ssdMobilenetv1.loadFromUri('./models')
-]).then(start)
 
-async function start() {
+
+  
+ 
+let dataHasil
+
+btnCapture.addEventListener( "click",async () => {
+
+  const MODEL_URL = './models'
+
+  await faceapi.loadSsdMobilenetv1Model(MODEL_URL)
+  await faceapi.loadFaceLandmarkModel(MODEL_URL)
+  await faceapi.loadFaceRecognitionModel(MODEL_URL)
   const container = document.createElement('div')
   container.style.position = 'relative'
   document.body.append(container)
@@ -74,10 +81,7 @@ async function start() {
   const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6)
   let image
   let canvas
- 
-  
 
-btnCapture.addEventListener( "click",async () => {
     if( null != cameraStream ) {
 
     var ctx = capture.getContext( '2d' );
@@ -109,22 +113,47 @@ var layer = document.getElementById('layer-capture')
     const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors()
     const resizedDetections = faceapi.resizeResults(detections, displaySize)
     const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
-    results.forEach((result, i) => {
+ 
+    results.forEach( (result, i) => {
       const box = resizedDetections[i].detection.box
-      const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString().replace(/\([^]+$/, '') })
-      document.getElementById('nip').innerHTML = "NIM&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;3111810251"
-      document.getElementById('nama').innerHTML = "Nama&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: "+result.toString().replace(/\([^]+$/, '')
-      document.getElementById('jabatan').innerHTML = "Jabatan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Staff"
-      drawBox.draw(canvas)
+      const drawBox = new faceapi.draw.DrawBox(box, { label: 'found' })
+      dataHasil = result.toString().replace(/\([^]+$/, '')
      
+      
+      
+        drawBox.draw(canvas)
+        // document.getElementById('path').innerHTML = dataHasil
+        var kirim = { photo : dataHasil}
+       
+
+  fetch(base_url+ route_cari, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+      'mode': 'cors'
+    },
+    body: JSON.stringify(kirim)
+  }).then(res1 => res1.json())
+    .then((res1)=> {
+     
+      console.log(res1)
+   document.getElementById('nip').innerHTML ='<b>NIP '+': </b>'+res1[0].nip
+   document.getElementById('nama').innerHTML = '<b>Nama '+': </b>'+res1[0].nama
+   document.getElementById('jabatan').innerHTML = '<b>Jabatan '+': </b>'+res1[0].jabatan
+  
+    });
     })
-    stopStreaming()
-    stream.style.display = "none"
+ 
+   
 }
+
+stopStreaming()
+stream.style.display = "none"
 })
  
 
-}
+
 
 function dataURItoBlob( dataURI ) {
 
@@ -143,12 +172,12 @@ function dataURItoBlob( dataURI ) {
 }
 
 function loadLabeledImages() {
-  const labels = ['Muhammad Husen', 'Affan Ghofar', 'Tengku Yoga', 'Galuh Eka', 'Salwa Zanjabila']
+  //const labels = ['Muhammad Husen', 'Affan Ghofar', 'Tengku Yoga', 'Galuh Eka', 'Salwa Zanjabila']
   return Promise.all(
     labels.map(async label => {
       const descriptions = []
       for (let i = 1; i <= 2; i++) {
-        const img = await faceapi.fetchImage(`./labeled_images/${label}/${i}.jpg`)
+        const img = await faceapi.fetchImage(base_url+`/${label}`)
         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
         descriptions.push(detections.descriptor)
       }
@@ -157,3 +186,5 @@ function loadLabeledImages() {
     })
   )
 }
+
+// new

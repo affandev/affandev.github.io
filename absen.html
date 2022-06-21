@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script defer src="face-api.min.js"></script>
+    <script src="config/config.js"></script>
+    <script defer src="get.js"></script>
     <script defer src="script.js"></script>
     <title>Document</title>
     <style>
@@ -46,7 +48,7 @@
     }
     </style>
 </head>
-<body>
+<body >
     <nav class="navbar bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" style="color: #fff;" href="#">Absensi</a>
@@ -78,7 +80,8 @@
             <div class="button-group">
               <center> <button id="btn-start" type="button" class="btn btn-success">Open Cam</button>
           
-                <button id="btn-capture" type="button" class="btn btn-primary">Capture Image</button></center>
+                <button id="btn-capture" type="button" class="btn btn-primary">Capture Image</button>
+               </center>
              
             </div>
            </div>
@@ -86,6 +89,7 @@
            <br><br>
             <center><h5>DETAIL INFORMASI</h5></center>
             <HR>
+              <p id="path"></p>
              <p id="nip"></p>
              <p id="nama"></p>
              <p id="jabatan"></p>
