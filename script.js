@@ -66,8 +66,18 @@ const imageUpload = document.getElementById('imageUpload')
   
  
 let dataHasil
-
+let lokasi = { longtitude:'', latitude:''}
+function showPosition(position) {
+  lokasi.longtitude = position.coords.longitude;
+   lokasi.latitude = position.coords.latitude;
+   console.log(JSON.stringify(lokasi))
+}
 btnCapture.addEventListener( "click",async () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    alert('browser tidak suport')
+  }
 
   const MODEL_URL = './models'
 
@@ -141,6 +151,11 @@ var layer = document.getElementById('layer-capture')
    document.getElementById('nip').innerHTML ='<b>NIP '+': </b>'+res1[0].nip
    document.getElementById('nama').innerHTML = '<b>Nama '+': </b>'+res1[0].nama
    document.getElementById('jabatan').innerHTML = '<b>Jabatan '+': </b>'+res1[0].jabatan
+   var btn = document.createElement('button');
+   btn.className = "btn btn-primary"
+   btn.innerHTML = "Konfirmasi"
+   document.getElementById('btn-konfir').append(btn)
+ 
   
     });
     })
