@@ -76,6 +76,7 @@ function showPosition(position) {
    link.href = "https://maps.google.com/maps?q="+lokasi.latitude+","+lokasi.longtitude+"&hl=es;z=14&amp;output=embed"
    link.innerHTML ="Lihat Lokasi Anda"
    link.target ="_blank"
+   map.innerHTML=""
    map.append(link)
   }
 btnCapture.addEventListener( "click",async () => {
