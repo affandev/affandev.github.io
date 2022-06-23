@@ -12,11 +12,30 @@
     <script defer src="script.js"></script>
     <title>Document</title>
     <style>
+      .row {
+        margin-right: 0!important;
+        margin-left: 0!important;
+      }
+      img {
+        width: 720px;
+        height: 540px;
+      }
       @media only screen and (max-width: 600px) {
   #capture {
     width: 320px!important;
   height: 240px!important;
   }
+  #stream {
+    width: 320px!important;
+    height: 240px!important;
+  }
+  img{
+    width: 320px!important;
+    height: 240px!important;
+  }
+}     #stream{
+  width: 720px;
+  height: 540px;
 }
       #absensi-form{
        
@@ -49,11 +68,15 @@
     </style>
 </head>
 <body >
+ <div class="row">
+   <div class="col-md-12 col-sm-12">
     <nav class="navbar bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" style="color: #fff;" href="#">Absensi</a>
-        </div>
-      </nav>
+      <div class="container-fluid">
+        <a class="navbar-brand" style="color: #fff;" href="#">Absensi</a>
+      </div>
+    </nav>
+   </div>
+ </div>
       <section id="absensi-form">
        
          <div class="row">
@@ -61,14 +84,14 @@
          
             
             <!-- Video Element & Canvas -->
-           <hr>
+         
            <div class="play-area">
             <div class="row">
-              <div class="col-md-12 col-sm-12">
+              <div class="col-md-8 col-sm-8">
                
-                  <video id="stream" style="width: 100%;"></video>
+                  <video id="stream" ></video>
                   <div id="layer-capture" style="width: 100%;">
-                    <canvas id="capture"width="720" height="540></canvas>
+                    <canvas id="capture"></canvas>
                     <div id="snapshot"></div>
                   </div>
                     
@@ -85,19 +108,22 @@
              
             </div>
            </div>
-           <div class="col-md-6 col-sm-12" style="padding-top: 0.9%;">
-           <br><br>
-            <center><h5>DETAIL INFORMASI</h5></center>
-            <HR>
-              <p id="path"></p>
-             <p id="nip"></p>
-             <p id="nama"></p>
-             <p id="jabatan"></p>
-             <div id="btn-konfir"></div>
-           </div>
+        
          
            
            </div>
+           <div class="col-md-6 col-sm-12" style="padding-top: 0.9%;">
+            <br><br>
+             <center><h5>DETAIL INFORMASI</h5></center>
+             <HR>
+               <p id="path"></p>
+              <p id="nip"></p>
+              <p id="nama"></p>
+              <p id="jabatan"></p>
+              <p id="maps"></p>
+              <div id="btn-konfir"></div>
+            </div>
+         
          </div>
       </section>
 </body>

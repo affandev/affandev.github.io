@@ -71,7 +71,13 @@ function showPosition(position) {
   lokasi.longtitude = position.coords.longitude;
    lokasi.latitude = position.coords.latitude;
    console.log(JSON.stringify(lokasi))
-}
+   var map = document.getElementById('maps')
+   var link = document.createElement('a')
+   link.href = "https://maps.google.com/maps?q="+lokasi.latitude+","+lokasi.longtitude+"&hl=es;z=14&amp;output=embed"
+   link.innerHTML ="Lihat Lokasi Anda"
+   link.target ="_blank"
+   map.append(link)
+  }
 btnCapture.addEventListener( "click",async () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
