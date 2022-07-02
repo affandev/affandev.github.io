@@ -110,6 +110,7 @@
   .then((res)=> {
 	sessionStorage.setItem('token',res.token)
 	sessionStorage.setItem('nama', res.nama)  
+	sessionStorage.setItem('jabatan', res.jabatan) 
 	 if (res.pesan === "Login Berhasil") {
 		 alert(res.pesan)
      window.location.href ="./dashboard.html"

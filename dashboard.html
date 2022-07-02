@@ -39,12 +39,17 @@ background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 }
+#username {
+  float: right;
+  margin-left: 2%;
+  color: #fff;
+}
     </style>
 </head>
-<body>
+<body onload="getUser()">
     <nav class="navbar bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" style="color: #fff;" href="#">Dashboard</a>
+          <a class="navbar-brand" style="color: #fff;" href="#">Dashboard </a>|<h4 id="username"></h4>
         </div>
       </nav>
 
@@ -52,7 +57,7 @@ background-size: cover;
           <div class="row">
               <div class="col-md-12 col-sm-12">
              <div class="row">
-                 <div class="col-md-6 col-sm-6">
+                 <div class="col-md-6 col-sm-6" id="addpegawai">
                     <div class="card" onclick="window.location.href='./add-pegawai.html'">
                         <div class="container">
         
@@ -86,7 +91,7 @@ background-size: cover;
                       </div>
                  </div>
 
-                 <div class="col-md-6 col-sm-6">
+                 <div class="col-md-6 col-sm-6" id="laporan">
                   <div class="card">
                       <div class="container">
       
@@ -103,7 +108,7 @@ background-size: cover;
                     </div>
                   </div>
                   <div class="col-md-6 col-sm-6">
-                    <div class="card">
+                    <div class="card"  onclick="window.location.href='./index.html'">
                         <div class="container">
         
                           <div class="row">
@@ -125,3 +130,16 @@ background-size: cover;
       </section>
 </body>
 </html>
+<script>
+  function getUser() {
+    document.getElementById('username').innerHTML =sessionStorage.getItem('nama')+" ("+sessionStorage.getItem('jabatan')+")"
+    if(sessionStorage.getItem('jabatan') !== "ketua" || sessionStorage.getItem('jabatan') !== "admin") {
+     document.getElementById('addpegawai').style.display="none"
+    document.getElementById('laporan').style.display="none"    }
+    else{
+      document.getElementById('addpegawai').style.display="block"
+    document.getElementById('laporan').style.display="block"  
+    }
+  
+  }
+</script>
