@@ -133,12 +133,14 @@ background-size: cover;
 <script>
   function getUser() {
     document.getElementById('username').innerHTML =sessionStorage.getItem('nama')+" ("+sessionStorage.getItem('jabatan')+")"
-    if(sessionStorage.getItem('jabatan') !== "ketua" || sessionStorage.getItem('jabatan') !== "admin") {
-     document.getElementById('addpegawai').style.display="none"
-    document.getElementById('laporan').style.display="none"    }
-    else{
+    if(sessionStorage.getItem('jabatan') === "ketua" || sessionStorage.getItem('jabatan') === "admin") {
       document.getElementById('addpegawai').style.display="block"
     document.getElementById('laporan').style.display="block"  
+    }
+    else{
+      document.getElementById('addpegawai').style.display="none"
+    document.getElementById('laporan').style.display="none" 
+     
     }
   
   }
