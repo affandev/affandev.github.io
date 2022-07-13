@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+    <title>Laporan</title>
+    <style>
+        #form-add-pegawai {
+            padding: 5%;
+        }
+
+        label {
+            margin-top: 2%;
+        }
+        table thead tr th {
+            text-align: center;
+        }
+        table tbody tr td {
+            text-align: center;
+        }
+        @media print {
+            .navbar {
+                display: none;
+            }
+            .formtext{
+                display: none!important;
+            }
+            head > title {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body onload="getData()">
+    <nav class="navbar bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" style="color: #fff;" href="#">Laporan Absensi Pegawai</a>
+        </div>
+    </nav>
+
+    <section id="laporan" style="margin-top: 3%; padding: 3%;">
+
+        <div class="raw">
+            <div class="col-md-12 col-sm-12" id="laman-data">
+                <div style="display: flex;" class="formtext">
+                    <button class="btn btn-primary" onclick="getDate()">tampil</button>
+                    <input type="text" id="search" class="form-control" style="width: 10%; margin-left: 2%; margin-right: 2%;" placeholder="YYYY-MM-DD"/>
+                    <button class="btn btn-warning" onclick="window.print()">Print</button>
+                </div>
+                 <h3 style="text-align: center;">Laporan Absensi</h3>
+                <br><br>
+                
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
+<script src="./config/config.js"></script>
+<script>
+    let data = []
+function getDate (){
+    var search = document.getElementById('search').value;
+    console.log(search)
+    var newData = data.filter(obj => Object.values(obj).some(val => val.includes(search)));
+    console.log(newData)
+    table(newData)
+}
+
+    function getData() {
+        let datatemp = []
+        fetch('http://localhost:8081/api/absen', {
+            method: 'get',
+            mode: 'cors',
+            cache: 'no-cache',
+            headers: {
+        
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response1) => {
+            return response1.json();
+        })
+        .then((json1) => {
+            for(let i in json1) {
+                delete json1[i].id;
+                delete json1[i].id_user
+                datatemp.push(json1[i])
+                data.push(json1[i])
+            }
+            
+          table(data)
+        })
+    }
+
+
+    // create tdata
+    function tabledata(table, data) {
+    let dataedit = [];
+    for (let element of data) {
+        let row = table.insertRow();
+        for (key in element) {
+            let cell = row.insertCell();
+            let text = ""
+            text = document.createTextNode(element[key]);
+            cell.appendChild(text);
+        }
+    }
+}
+function tablehead(table, data) {
+    let thead = table.createTHead();
+    let row = thead.insertRow();
+    for (let key of data) {
+            let th = document.createElement("th");
+            th.scope = "col"
+            let text = document.createTextNode(key);
+            th.appendChild(text);
+            row.appendChild(th);
+        
+    }
+}
+function table(json) {
+    console.log(json)
+    if (document.getElementById('mytable')) {
+        document.getElementById('mytable').innerHTML = "";
+        document.getElementById('mytable').remove()
+        
+    }
+    let br = document.createElement('br');
+    let br2 = document.createElement('br');
+    document.body.appendChild(br2);
+    document.body.appendChild(br);
+    let etable = document.createElement('table');
+    etable.id = "mytable"
+    etable.className = "table table-bordered"
+    // document.body.appendChild(etable);
+    var laman = document.getElementById('laman-data');
+    laman.append(etable)
+    let qtable = document.querySelector("table");
+    let data;
+    if (json.length === 0) {
+        data = ["Data Kosong"]
+    } else {
+        data = Object.keys(json[0])
+    }
+    tabledata(etable, json);
+    tablehead(qtable, data);
+}
+</script>

@@ -160,7 +160,10 @@ var layer = document.getElementById('layer-capture')
    document.getElementById('jabatan').innerHTML = '<b>Jabatan '+': </b>'+res1[0].jabatan
    var btn = document.createElement('button');
    btn.className = "btn btn-primary"
-   btn.innerHTML = "Konfirmasi"
+   btn.innerHTML = "Konfirmasi absensi"
+   datauser = {
+    id :res1[0].id, nip:res1[0].nip,nama: res1[0].nama,jabatan: res1[0].jabatan
+  } 
    document.getElementById('btn-konfir').append(btn)
  
   
@@ -174,8 +177,33 @@ stopStreaming()
 stream.style.display = "none"
 })
  
+let datauser;
 
+document.getElementById("btn-konfir").addEventListener("click", absendata);
+function absendata () {
+ 
+ if(datauser.nama === sessionStorage.getItem('nama')){
+  fetch(base_url+ route_absen, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(datauser)
+  }).then(res => res.json())
+    .then((res)=> { 
+     console.log(res)
+     if(res.pesan === "absensi berhasil"){
+       alert(res.pesan+" keterangan '"+res.keterangan+"'")
+       window.location.href="./index.html"
+     }
 
+    });
+ } else {
+   alert("wajah dan data tidak sesuai harap ulangi")
+   window.location.href="./absen.html"
+ }
+} 
 
 function dataURItoBlob( dataURI ) {
 
