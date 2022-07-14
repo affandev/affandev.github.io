@@ -162,7 +162,7 @@ var layer = document.getElementById('layer-capture')
    btn.className = "btn btn-primary"
    btn.innerHTML = "Konfirmasi absensi"
    datauser = {
-    id :res1[0].id, nip:res1[0].nip,nama: res1[0].nama,jabatan: res1[0].jabatan
+    id :res1[0].id, nip:res1[0].nip,nama: res1[0].username,jabatan: res1[0].jabatan
   } 
    document.getElementById('btn-konfir').append(btn)
  

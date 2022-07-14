@@ -108,7 +108,7 @@ background-size: cover;
                     </div>
                   </div>
                   <div class="col-md-6 col-sm-6">
-                    <div class="card"  onclick="window.location.href='./index.html'">
+                    <div class="card"  onclick="logout()">
                         <div class="container">
         
                           <div class="row">
@@ -131,6 +131,11 @@ background-size: cover;
 </body>
 </html>
 <script>
+  function logout(){
+    sessionStorage.removeItem('nama')
+    sessionStorage.removeItem('jabatan')
+    window.location.href='./index.html'
+  }
   function getUser() {
     document.getElementById('username').innerHTML =sessionStorage.getItem('nama')+" ("+sessionStorage.getItem('jabatan')+")"
     if(sessionStorage.getItem('jabatan') === "ketua" || sessionStorage.getItem('jabatan') === "admin") {
