@@ -78,7 +78,7 @@ function getDate (){
 
     function getData() {
         let datatemp = []
-        fetch('http://localhost:8081/api/absen', {
+        fetch(base_url +route_absen, {
             method: 'get',
             mode: 'cors',
             cache: 'no-cache',
