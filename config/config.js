@@ -1,4 +1,4 @@
-const base_url = 'https://0910-180-252-117-231.ap.ngrok.io'
+const base_url = 'https://0238-180-244-161-197.ap.ngrok.io'
 // params
 const save = '/generateStruk';
 const route_login ='/api/login';
