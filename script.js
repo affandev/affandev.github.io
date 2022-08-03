@@ -2,7 +2,7 @@
 var btnStart = document.getElementById( "btn-start" );
 var btnStop = document.getElementById( "btn-stop" );
 var btnCapture = document.getElementById( "btn-capture" );
-
+let jarak;
 // The stream & capture
 var stream = document.getElementById( "stream" );
 var capture = document.getElementById( "capture" );
@@ -70,6 +70,20 @@ let lokasi = { longtitude:'', latitude:''}
 function showPosition(position) {
   lokasi.longtitude = position.coords.longitude;
    lokasi.latitude = position.coords.latitude;
+   fetch(base_url+ route_getradius, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+      'mode': 'cors'
+    },
+    body: JSON.stringify(lokasi)
+  }).then(res1 => res1.json())
+    .then((res1)=> { 
+      console.log(res1)
+      jarak = res1.hasil+" Km dari lokasi kantor"
+
+    })
    console.log(JSON.stringify(lokasi))
    var map = document.getElementById('maps')
    var link = document.createElement('a')
@@ -82,6 +96,8 @@ function showPosition(position) {
 btnCapture.addEventListener( "click",async () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
+    
+
   } else { 
     alert('browser tidak suport')
   }
@@ -155,6 +171,10 @@ var layer = document.getElementById('layer-capture')
     .then((res1)=> {
      
       console.log(res1)
+      var map = document.getElementById('maps')
+      var radius = document.createElement('p')
+      radius.innerHTML = jarak;
+      map.append(radius)
    document.getElementById('nip').innerHTML ='<b>NIP '+': </b>'+res1[0].nip
    document.getElementById('nama').innerHTML = '<b>Nama '+': </b>'+res1[0].nama
    document.getElementById('jabatan').innerHTML = '<b>Jabatan '+': </b>'+res1[0].jabatan
@@ -162,7 +182,7 @@ var layer = document.getElementById('layer-capture')
    btn.className = "btn btn-primary"
    btn.innerHTML = "Konfirmasi absensi"
    datauser = {
-    id :res1[0].id, nip:res1[0].nip,nama: res1[0].username,jabatan: res1[0].jabatan
+    id :res1[0].id, nip:res1[0].nip,nama: res1[0].username,jabatan: res1[0].jabatan, lokasi:lokasi
   } 
    document.getElementById('btn-konfir').append(btn)
  
@@ -195,7 +215,10 @@ function absendata () {
      console.log(res)
      if(res.pesan === "absensi berhasil"){
        alert(res.pesan+" keterangan '"+res.keterangan+"'")
-       window.location.href="./index.html"
+       window.location.href="./dashboard.html"
+     }
+     else {
+      alert(res.pesan)
      }
 
     });
